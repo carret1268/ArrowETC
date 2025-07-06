@@ -151,7 +151,7 @@ arrow.save_arrow(base_path / "crazier_bezier_with_head-high_n.png", lw=1.2)
 
 These examples illustrate how ArrowETC can handle everything from straight connectors to advanced, smooth curved paths — making it an ideal replacement for matplotlib’s limited arrow types, and a powerful tool for your custom diagrams.
 
-For reference, all example scripts are included in the `examples/` directory and the generated images are saved in the `resources/` directory on ![GitHub](https://github.com/carret1268/ArrowETC)
+For reference, all example scripts are included in the `examples/` directory and the generated images are saved in the `resources/` directory on [GitHub](https://github.com/carret1268/ArrowETC)
 
 ## Why these examples matter
 
@@ -163,6 +163,10 @@ They demonstrate ArrowETC’s key advantages:
 ## License
 
 This project is licensed under a CC0 License. See LICENSE file for details.
+
+## GitHub Link
+
+[GitHub](https://github.com/yourusername/ArrowETC)
 
 ---
 

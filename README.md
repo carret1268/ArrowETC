@@ -1,8 +1,11 @@
 # ArrowETC
 
+[![Documentation Status](https://readthedocs.org/projects/yourprojectname/badge/?version=latest)](https://yourprojectname.readthedocs.io/en/latest/)
+[![PyPI](https://img.shields.io/pypi/v/arrowetc.svg)](https://pypi.org/project/arrowetc/)
+
 ArrowETC is a Python library for building flexible, multi-segmented arrows with explicit vertex control — perfect for precise, publication-quality diagrams. It was designed as a drop-in replacement for matplotlib’s `FancyArrow` and `FancyArrowPatch`, providing far greater control over arrow geometry, corners, and paths.
 
----
+📚 **Documentation**: [Read the Docs](https://yourprojectname.readthedocs.io/en/latest/)
 
 ## Motivation
 
