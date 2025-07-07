@@ -51,7 +51,7 @@ Dependencies
 - Python packages: numpy, matplotlib, scipy
 """
 
-from typing import List, Optional, Tuple, Union
+from typing import cast, List, Optional, Tuple, Union
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -205,7 +205,10 @@ class ArrowETC:
 
         # generate an arrow head if desired
         if self.arrow_head:
-            B = tuple(vertices[-1])
+            B = cast(
+                tuple[float | np.float64, float | np.float64],
+                (float(vertices[-1][0]), float(vertices[-1][1])),
+            )
             Bx, By = B[0], B[1]
             verts = self._get_arrow_head_vertices(path[-1][0], path[-1][1], theta_1)
             # replace last vertex with new one to make room for arrow head
