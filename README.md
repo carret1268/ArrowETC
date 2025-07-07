@@ -6,7 +6,7 @@
 [![CI](https://github.com/carret1268/ArrowETC/actions/workflows/ci.yml/badge.svg)](https://github.com/carret1268/ArrowETC/actions/workflows/ci.yml)
 
 
-ArrowETC is a Python library for building flexible, multi-segmented arrows with explicit vertex control — perfect for precise, publication-quality diagrams. It was designed as a drop-in replacement for matplotlib’s `FancyArrow` and `FancyArrowPatch`, providing far greater control over arrow geometry, corners, and paths.
+ArrowETC is a Python library for building flexible, multi-segmented arrows with explicit vertex control -- perfect for precise, publication-quality diagrams. It was designed as a drop-in replacement for matplotlib’s `FancyArrow` and `FancyArrowPatch`, providing far greater control over arrow geometry, corners, and paths.
 
 📚 **Documentation**: [Read the Docs](https://yourprojectname.readthedocs.io/en/latest/)
 
@@ -63,7 +63,7 @@ arrow.save_arrow("resources/basic_arrow_with_head.png")
 
 ### Multi-segment arrow with head
 
-Draws an arrow that bends twice — showcasing ArrowETC’s support for arbitrarily segmented arrows with mitered joints.
+Draws an arrow that bends twice -- showcasing ArrowETC’s support for arbitrarily segmented arrows with mitered joints.
 
 ```python
 path = [(0, 0), (0, 4), (5, 4), (5, -2)]
@@ -87,7 +87,7 @@ arrow.save_arrow(base_path / "obtuse_arrow_with_head.png", fc="orange", ec="cyan
 
 ### Acute angle arrow
 
-Shows an arrow with an acute angle, where the shaft sharply turns — highlighting ArrowETC’s ability to produce clean miters even for tight angles.
+Shows an arrow with an acute angle, where the shaft sharply turns -- highlighting ArrowETC’s ability to produce clean miters even for tight angles.
 
 ```python
 path = [(0, 0), (4, 0), (1, 4)]
@@ -135,7 +135,7 @@ arrow.save_arrow(base_path / "basic_bezier_with_head.png", fc="orange", ec="cyan
 
 ### Complex Bezier arrows
 
-- **Low bezier_n**: `bezier_n=400` — demonstrates how too few sample points can distort the arrowhead or tip on sharp, complex curves.
+- **Low bezier_n**: `bezier_n=400` -- demonstrates how too few sample points can distort the arrowhead or tip on sharp, complex curves.
 
 ```python
 path = [(0, 0), (4, -5), (8, 2), (16, -8)]
@@ -145,7 +145,7 @@ arrow.save_arrow(base_path / "crazier_bezier_with_head-low_n.png", lw=1.2)
 
 ![crazier bezier with head - low n](https://raw.githubusercontent.com/carret1268/ArrowETC/main/resources/crazier_bezier_with_head-low_n.png)
 
-- **High bezier_n**: `bezier_n=800` — shows a smooth, high-resolution arrow even along aggressive curves, fixing tip skew.
+- **High bezier_n**: `bezier_n=800` -- shows a smooth, high-resolution arrow even along aggressive curves, fixing tip skew.
 
 ```python
 path = [(0, 0), (4, -5), (8, 2), (14, -8)]
@@ -157,7 +157,7 @@ arrow.save_arrow(base_path / "crazier_bezier_with_head-high_n.png", lw=1.2)
 
 ---
 
-These examples illustrate how ArrowETC can handle everything from straight connectors to advanced, smooth curved paths — making it an ideal replacement for matplotlib’s limited arrow types, and a powerful tool for your custom diagrams.
+These examples illustrate how ArrowETC can handle everything from straight connectors to advanced, smooth curved paths -- making it an ideal replacement for matplotlib’s limited arrow types, and a powerful tool for your custom diagrams.
 
 For reference, all example scripts are included in the `examples/` directory. The generated images are saved in the `resources/` directory. 
 
