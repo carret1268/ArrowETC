@@ -438,7 +438,11 @@ class ArrowETC:
         return np.array([Ax + dx, Ay + dy])
 
     def _vertex_from_angle(
-        self, Bx: FloatLike, By: FloatLike, theta_1: FloatLike, theta_2: Optional[FloatLike]
+        self,
+        Bx: FloatLike,
+        By: FloatLike,
+        theta_1: FloatLike,
+        theta_2: Optional[FloatLike],
     ) -> NDArray[np.float64]:
         """
         Calculate a polygon vertex at a joint between two arbitrary segments,
