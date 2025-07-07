@@ -298,7 +298,7 @@ class ArrowETC:
             dists = np.hypot(np.diff(samples[::-1, 0]), np.diff(samples[::-1, 1]))
             cumulative = np.cumsum(np.hstack([[0], dists]))
             # find first index where cumulative distance exceeds head_length
-            idx_cutoff = n_samples - np.argmax(cumulative > head_length) - 1
+            idx_cutoff = n_samples - int(np.argmax(cumulative > head_length)) - 1
         else:
             idx_cutoff = n_samples - 1
 
