@@ -203,7 +203,7 @@ class ArrowETC:
 
         # generate an arrow head if desired
         if self.arrow_head:
-            B = vertices[-1]
+            B = tuple(vertices[-1])
             Bx, By = B[0], B[1]
             verts = self._get_arrow_head_vertices(path[-1][0], path[-1][1], theta_1)
             # replace last vertex with new one to make room for arrow head
@@ -419,7 +419,7 @@ class ArrowETC:
             right_base - left_base,
         )
 
-        return [A, left_base, tip, right_base, E]
+        return np.array([A, left_base, tip, right_base, E])
 
     def _get_first_vertex(
         self, Ax: float, Ay: float, theta_1: float
