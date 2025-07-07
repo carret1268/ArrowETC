@@ -37,7 +37,7 @@ This was essential for building [LogicTreeETC](https://github.com/carret1268/Log
 
 ## Installation
 
-ArrowETC requires Python 3.7+ and the packages `numpy`, `matplotlib`, and `scipy`. Install via pip:
+ArrowETC requires Python 3.8+ and the packages `numpy`, `matplotlib`, and `scipy`. Install via pip:
 ```bash
 pip install ArrowETC
 ```
