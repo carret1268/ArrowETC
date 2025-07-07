@@ -2,6 +2,7 @@
 
 [![PyPI](https://img.shields.io/pypi/v/ArrowETC.svg)](https://pypi.org/project/ArrowETC/)
 [![CI](https://github.com/carret1268/ArrowETC/actions/workflows/ci.yml/badge.svg)](https://github.com/carret1268/ArrowETC/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/carret1268/ArrowETC/branch/main/graph/badge.svg)](https://codecov.io/gh/carret1268/ArrowETC)
 [![GitHub](https://img.shields.io/badge/source-GitHub-black?logo=github)](https://github.com/carret1268/ArrowETC)
 
 ArrowETC is a Python library for building flexible, multi-segmented arrows with explicit vertex control — perfect for precise, publication-quality diagrams. It was designed as a drop-in replacement for matplotlib’s `FancyArrow` and `FancyArrowPatch`, providing far greater control over arrow geometry, corners, and paths.

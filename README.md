@@ -2,6 +2,7 @@
 
 [![Documentation Status](https://readthedocs.org/projects/ArrowETC/badge/?version=latest)](https://arrowetc.readthedocs.io/en/latest/)
 [![PyPI](https://img.shields.io/pypi/v/arrowetc.svg)](https://pypi.org/project/arrowetc/)
+[![codecov](https://codecov.io/gh/carret1268/ArrowETC/branch/main/graph/badge.svg)](https://codecov.io/gh/carret1268/ArrowETC)
 [![CI](https://github.com/carret1268/ArrowETC/actions/workflows/ci.yml/badge.svg)](https://github.com/carret1268/ArrowETC/actions/workflows/ci.yml)
 
 
