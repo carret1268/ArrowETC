@@ -58,7 +58,7 @@ arrow = ArrowETC(path, arrow_width=0.5, arrow_head=True)
 arrow.save_arrow("resources/basic_arrow_with_head.png")
 ```
 
-![basic arrow with head](./resources/basic_arrow_with_head.png)
+![basic arrow with head](https://raw.githubusercontent.com/carret1268/ArrowETC/main/resources/basic_arrow_with_head.png)
 
 ### Multi-segment arrow with head
 
@@ -70,7 +70,7 @@ arrow = ArrowETC(path, arrow_width=0.5, arrow_head=True)
 arrow.save_arrow(base_path / "multi_segment_arrow_with_head.png", fc="magenta", lw=1)
 ```
 
-![multi segment arrow with head](./resources/multi_segment_arrow_with_head.png)
+![multi segment arrow with head](https://raw.githubusercontent.com/carret1268/ArrowETC/main/resources/multi_segment_arrow_with_head.png)
 
 ### Obtuse angle arrow
 
@@ -82,7 +82,7 @@ arrow = ArrowETC(path, arrow_width=0.5, arrow_head=True)
 arrow.save_arrow(base_path / "obtuse_arrow_with_head.png", fc="orange", ec="cyan", lw=1.2)
 ```
 
-![obtuse arrow with head](./resources/obtuse_arrow_with_head.png)
+![obtuse arrow with head](https://raw.githubusercontent.com/carret1268/ArrowETC/main/resources/obtuse_arrow_with_head.png)
 
 ### Acute angle arrow
 
@@ -94,7 +94,7 @@ arrow = ArrowETC(path, arrow_width=0.5, arrow_head=True)
 arrow.save_arrow(base_path / "acute_arrow_with_head.png")
 ```
 
-![acute arrow with head](./resources/acute_arrow_with_head.png)
+![acute arrow with head](https://raw.githubusercontent.com/carret1268/ArrowETC/main/resources/acute_arrow_with_head.png)
 
 ### More complex multi-segmented arrow
 
@@ -106,7 +106,7 @@ arrow = ArrowETC(path, arrow_head=True, arrow_width=0.2)
 arrow.save_arrow(base_path / "many_segments_with_head.png", lw=1.2)
 ```
 
-![more complex multi-segmented arrow](./resources/many_segments_with_head.png)
+![more complex multi-segmented arrow](https://raw.githubusercontent.com/carret1268/ArrowETC/main/resources/many_segments_with_head.png)
 
 ### Multi-segmented arrow without arrowhead
 
@@ -118,7 +118,7 @@ arrow = ArrowETC(path, arrow_width=1, arrow_head=False)
 arrow.save_arrow(base_path / "multi_segment_no_head.png")
 ```
 
-![multi segment no head](./resources/multi_segment_no_head.png)
+![multi segment no head](https://raw.githubusercontent.com/carret1268/ArrowETC/main/resources/multi_segment_no_head.png)
 
 ### Basic Bezier arrow with head
 
@@ -130,7 +130,7 @@ arrow = ArrowETC(path, arrow_width=0.5, arrow_head=True, bezier=True)
 arrow.save_arrow(base_path / "basic_bezier_with_head.png", fc="orange", ec="cyan", lw=1.2)
 ```
 
-![basic bezier with head](/resources/basic_bezier_with_head.png)
+![basic bezier with head](https://raw.githubusercontent.com/carret1268/ArrowETC/main/resources/basic_bezier_with_head.png)
 
 ### Complex Bezier arrows
 
@@ -142,7 +142,7 @@ arrow = ArrowETC(path, arrow_width=1, arrow_head=True, bezier=True)
 arrow.save_arrow(base_path / "crazier_bezier_with_head-low_n.png", lw=1.2)
 ```
 
-![crazier bezier with head - low n](./resources/crazier_bezier_with_head-low_n.png)
+![crazier bezier with head - low n](https://raw.githubusercontent.com/carret1268/ArrowETC/main/resources/crazier_bezier_with_head-low_n.png)
 
 - **High bezier_n**: `bezier_n=800` — shows a smooth, high-resolution arrow even along aggressive curves, fixing tip skew.
 
@@ -152,7 +152,7 @@ arrow = ArrowETC(path, arrow_width=1, arrow_head=True, bezier=True, bezier_n=800
 arrow.save_arrow(base_path / "crazier_bezier_with_head-high_n.png", lw=1.2)
 ```
 
-![crazier bezier with head - high n](./resources/crazier_bezier_with_head-high_n.png)
+![crazier bezier with head - high n](https://raw.githubusercontent.com/carret1268/ArrowETC/main/resources/crazier_bezier_with_head-high_n.png)
 
 ---
 
