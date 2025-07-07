@@ -41,32 +41,32 @@ def draw_arrow(ax, path, width, color, bezier=False, bezier_n=300):
 def main():
     base_path = Path(__file__).resolve().parent.parent / 'resources'
 
-    # === Plot sparse sample data
+    # plot sparse sample data
     x = np.array([0, 1.5, 3, 5, 7])
     y = np.array([0, 0.5, -0.3, 0.7, -0.2])
     fig, ax = plt.subplots(figsize=(12, 4))
     ax.plot(x, y, 'o-', label='Sample Data')
     ax.set_title("Using ArrowETC with Matplotlib")
 
-    # === First annotation: Interesting Point
+    # first annotation: Interesting Point
     point_idx = 2
     point_x, point_y = x[point_idx], y[point_idx]
     text1 = add_annotation(ax, point_x, point_y + 1, "Interesting Point", fontsize=12, ha='center', va='bottom')
     x_center1, y_bottom1, bbox1 = get_bbox_center_bottom(fig, ax, text1)
     arrow1 = draw_arrow(ax, [(x_center1, y_bottom1), (point_x, point_y + 0.05)], width=0.15, color='magenta')
 
-    # === Second annotation: I have access to each vertex
+    # second annotation: I have access to each vertex
     vertex1_x, vertex1_y = arrow1.vertices[2]
     text2 = add_annotation(ax, vertex1_x + 1.3, vertex1_y + 0.1, "I have access to each vertex")
     x_center2, y_center2, bbox2 = get_bbox_center_bottom(fig, ax, text2, vertical_offset=-0.02)
     arrow2 = draw_arrow(ax, [(bbox2.xmin - 0.07, y_center2), (vertex1_x, vertex1_y)], width=0.1, color='cyan')
 
-    # === Third annotation: We can easily add more complex arrows
+    # third annotation: We can easily add more complex arrows
     text3 = add_annotation(ax, -0.5, -0.8, "We can easily add more complex arrows")
     x_center3, y_center3, bbox3 = get_bbox_center_bottom(fig, ax, text3, vertical_offset=0)
     x_right3, y_center3 = bbox3.x1 + 0.59, (bbox3.y0 + bbox3.y1) / 2
 
-    # Path for segmented arrow from text2 to text3
+    # path for segmented arrow from text2 to text3
     x_center2 = (bbox2.x0 + bbox2.x1) / 2 + 0.14
     path3 = [
         (x_center2, bbox2.y0 - 0.11),  # below second text
