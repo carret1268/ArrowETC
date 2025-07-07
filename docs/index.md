@@ -1,7 +1,10 @@
 # ArrowETC
 
-[![GitHub](https://img.shields.io/badge/source-GitHub-black?logo=github)](https://github.com/carret1268/ArrowETC)
 [![PyPI](https://img.shields.io/pypi/v/ArrowETC.svg)](https://pypi.org/project/ArrowETC/)
+[![CI](https://github.com/carret1268/ArrowETC/actions/workflows/ci.yml/badge.svg)](https://github.com/carret1268/ArrowETC/actions/workflows/ci.yml)
+[![GitHub](https://img.shields.io/badge/source-GitHub-black?logo=github)](https://github.com/carret1268/ArrowETC)
+
+
 
 
 
