@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ArrowETC"
-version = "0.1.4"
+version = "0.1.5"
 description = "Flexible multi-segmented and curved arrows for Python visualizations."
 authors = [
   { name="E. Tyler Carr", email="carret1268@gmail.com" },
@@ -38,3 +38,14 @@ packages = ["arrowetc"]
 [tool.setuptools.package-data]
 arrowetc = []
 
+[tool.ruff]
+lint.ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.8"  # or your minimum supported version
+ignore_missing_imports = true
+strict_optional = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+warn_unused_ignores = true
+show_error_codes = true

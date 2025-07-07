@@ -171,6 +171,18 @@ They demonstrate ArrowETC’s key advantages:
 - Support for multi-segment and curved paths beyond what FancyArrow/FancyArrowPatch allow.
 - Integration-ready arrow metadata for downstream tasks, e.g., logic trees using [LogicTreeETC](https://github.com/carret1268/LogicTreeETC).
 
+## Development
+
+This project uses the following tools for code quality and security:
+
+- **Ruff**: for fast linting and auto-formatting checks.
+- **mypy**: for static type checking.
+- **Bandit**: for security scanning.
+- **GitHub Actions CI**: runs tests, type checks, linting, and security checks on every push.
+- **Dependabot**: automatically checks for dependency updates.
+
+See the [.github/workflows/](https://github.com/carret1268/ArrowETC/tree/main/.github/workflows) directory for CI configurations.
+
 ## License
 
 This project is licensed under a CC0 License. See LICENSE file for details.

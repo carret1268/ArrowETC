@@ -17,7 +17,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
-        fetch-depth: 2  # recommended by Codecov for accurate diffs
+        fetch-depth: 2
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -28,8 +28,20 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -e .
-        pip install pytest coverage
+        pip install pytest coverage ruff mypy bandit
         pip install -r docs/requirements.txt
+
+    - name: Run linter (Ruff)
+      run: ruff check .
+
+    - name: Check formatting (Ruff)
+      run: ruff format --check .
+
+    - name: Run static typechecker (Mypy)
+      run: mypy arrowetc/
+
+    - name: Run security check (Bandit)
+      run: bandit -r arrowetc
 
     - name: Run tests with coverage
       run: |

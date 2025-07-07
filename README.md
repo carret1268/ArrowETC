@@ -177,6 +177,18 @@ They demonstrate ArrowETC’s key advantages:
 
 ---
 
+## Development
+
+This project uses the following tools for code quality and security:
+
+- **Ruff**: for fast linting and auto-formatting.
+- **mypy**: for static type checking.
+- **Bandit**: for security scanning.
+- **GitHub Actions CI**: runs tests, type checks, linting, and security checks on every push.
+- **Dependabot**: automatically checks for dependency updates.
+
+See the [.github/workflows/](https://github.com/carret1268/ArrowETC/tree/main/.github/workflows) directory for CI configurations.
+
 ## License
 
 This project is licensed under a CC0 License. See LICENSE file for details.
