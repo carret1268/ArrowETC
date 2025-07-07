@@ -51,12 +51,14 @@ Dependencies
 - Python packages: numpy, matplotlib, scipy
 """
 
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, Union
 
 import matplotlib.pyplot as plt
 import numpy as np
 from numpy.typing import NDArray
 from scipy.interpolate import splprep, splev
+
+FloatLike = Union[float, np.float64]
 
 
 class ArrowETC:
@@ -71,10 +73,10 @@ class ArrowETC:
 
     Parameters
     ----------
-    path : list of tuple of float or int
+    path : list of tuple of FloatLike or int
         List of points defining the arrow path. Each tuple represents a
         control point. The first point is the "butt" (tail), and the last point is the arrow "head".
-    arrow_width : float or int
+    arrow_width : FloatLike or int
         Width of the arrow shaft in data coordinates.
     arrow_head : bool, optional
         If True, an arrowhead is added at the end of the path. If False, the arrow ends with a flat edge.
@@ -90,30 +92,30 @@ class ArrowETC:
     ----------
     path : list of tuple
         The input path defining the arrow's geometry.
-    x_path : list of float
+    x_path : list of FloatLike
         X-coordinates of the path points.
-    y_path : list of float
+    y_path : list of FloatLike
         Y-coordinates of the path points.
     n_path : int
         Number of points in the path.
     n_segments : int
         Number of line segments (n_path - 1).
-    segment_lengths : list of float
+    segment_lengths : list of FloatLike
         Lengths of each straight segment. Not defined for Bezier curves.
-    path_angles : list of float
+    path_angles : list of FloatLike
         Angles (radians) each straight segment makes with the positive x-axis. Not defined for Bezier curves.
     vertices : ndarray of shape (N, 2)
         Array of vertices defining the arrow polygon.
-    x_vertices : ndarray of float
+    x_vertices : ndarray of FloatLike
         X-coordinates of the arrow polygon vertices.
-    y_vertices : ndarray of float
+    y_vertices : ndarray of FloatLike
         Y-coordinates of the arrow polygon vertices.
     """
 
     def __init__(
         self,
-        path: List[Tuple[float, float]],
-        arrow_width: float,
+        path: List[Tuple[FloatLike, FloatLike]],
+        arrow_width: FloatLike,
         arrow_head: bool = False,
         bezier: bool = False,
         bezier_n: int = 400,
@@ -232,7 +234,7 @@ class ArrowETC:
             vert = self._vertex_from_angle(Bx, By, theta_1, theta_2)
             vertices.append(vert)
 
-        return np.array(vertices, dtype=float)
+        return np.array(vertices, dtype=np.float64)
 
     def _get_bezier_samples(self) -> NDArray[np.float64]:
         """
@@ -332,7 +334,7 @@ class ArrowETC:
         return vertices
 
     def _get_arrow_head_vertices(
-        self, tipx: float, tipy: float, theta_1: float
+        self, tipx: FloatLike, tipy: FloatLike, theta_1: FloatLike
     ) -> NDArray[np.float64]:
         """
         Calculate five points forming the arrowhead with shaft sides extending
@@ -340,11 +342,11 @@ class ArrowETC:
 
         Parameters
         ----------
-        tipx : float
+        tipx : FloatLike
             The x-coordinate of the arrow tip (the x-coordinate of the final point in self.path).
-        tipy : float
+        tipy : FloatLike
             The y-coordinate of the arrow tip.
-        theta_1 : float
+        theta_1 : FloatLike
             The angle in radians the line that a line between the arrow tip and the previouse
             point in self.path make with the horizontal axis.
 
@@ -362,7 +364,7 @@ class ArrowETC:
         perp_x, perp_y = -dir_y, dir_x
 
         # Tip point
-        tip = np.array([tipx, tipy], dtype=float)
+        tip = np.array([tipx, tipy], dtype=np.float64)
 
         # Base center: base of the arrowhead along shaft
         base_cx = tipx - head_length * dir_x
@@ -422,7 +424,7 @@ class ArrowETC:
         return np.array([A, left_base, tip, right_base, E])
 
     def _get_first_vertex(
-        self, Ax: float, Ay: float, theta_1: float
+        self, Ax: FloatLike, Ay: FloatLike, theta_1: FloatLike
     ) -> NDArray[np.float64]:
         """
         Calculate the first side vertex at the butt of the arrow,
@@ -436,7 +438,7 @@ class ArrowETC:
         return np.array([Ax + dx, Ay + dy])
 
     def _vertex_from_angle(
-        self, Bx: float, By: float, theta_1: float, theta_2: Optional[float]
+        self, Bx: FloatLike, By: FloatLike, theta_1: FloatLike, theta_2: Optional[FloatLike]
     ) -> NDArray[np.float64]:
         """
         Calculate a polygon vertex at a joint between two arbitrary segments,
@@ -444,16 +446,16 @@ class ArrowETC:
 
         Parameters
         ----------
-        Bx, By : float
+        Bx, By : FloatLike
             Coordinates of the joint between segments.
-        theta_1 : float
+        theta_1 : FloatLike
             Angle of incoming segment.
-        theta_2 : float or None
+        theta_2 : FloatLike or None
             Angle of outgoing segment. None if it's the last segment.
 
         Returns
         -------
-        ndarray of float
+        ndarray of np.float64
             Coordinates of the calculated vertex as [x, y].
         """
         w2 = self.arrow_width / 2
@@ -481,7 +483,7 @@ class ArrowETC:
         t = np.linalg.solve(mat, B - A)[0]
         return A + t * dA
 
-    def _get_angles(self, path: List[Tuple[float, float]]) -> List[float]:
+    def _get_angles(self, path: List[Tuple[FloatLike, FloatLike]]) -> List[FloatLike]:
         """
         Calculate angles each segment makes with the positive x-axis,
         allowing arbitrary directions.
@@ -493,7 +495,7 @@ class ArrowETC:
 
         Returns
         -------
-        list of float
+        list of FloatLike
             Angles (radians) of each segment relative to +x axis.
         """
         angles = []
@@ -506,13 +508,13 @@ class ArrowETC:
 
         return angles
 
-    def _get_segment_length(self) -> List[float]:
+    def _get_segment_length(self) -> List[FloatLike]:
         """
         Compute the Euclidean length of each arrow segment.
 
         Returns
         -------
-        list of float
+        list of FloatLike
             Distances between consecutive path points defining each segment.
         """
         distances = []
@@ -530,7 +532,7 @@ class ArrowETC:
         name: str = "./arrow.png",
         ec: str = "white",
         fc: str = "cyan",
-        lw: float = 0.6,
+        lw: FloatLike = 0.6,
     ) -> None:
         """
         Display the arrow using matplotlib.
@@ -546,7 +548,7 @@ class ArrowETC:
             Edge color of the arrow outline. Default is 'white'.
         fc : str, optional
             Fill color of the arrow body. Default is 'cyan'.
-        lw : float, optional
+        lw : FloatLike, optional
             Line width of the arrow outline. Default is 0.6.
         """
         x = self.x_vertices
