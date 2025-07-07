@@ -559,7 +559,7 @@ class ArrowETC:
         x = self.x_vertices
         y = self.y_vertices
         # generate figure and axis to put boxes in
-        _, ax = plt.subplots(figsize=(8, 8), frameon=True, facecolor="black")
+        _, ax = plt.subplots(figsize=(5, 5), frameon=True, facecolor="black")
         ax.axis("off")
         ax.set_aspect("equal")
         # set axis bounds
@@ -576,7 +576,7 @@ class ArrowETC:
         ax.fill(x, y, color=fc)
         ax.set_aspect("equal")
 
-        plt.savefig(name)
+        plt.savefig(name, bbox_inches="tight", pad_inches=0.1)
 
 
 __all__ = ["ArrowETC"]

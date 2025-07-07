@@ -16,7 +16,7 @@ def main():
     arrow.save_arrow(base_path / "basic_arrow_with_head.png")
 
     # multi segmented arrows
-    path = [(0, 0), (0, 4), (5, 4), (5, -2)]
+    path = [(0, 0), (0, 4), (5, 4), (5, 0)]
     arrow = ArrowETC(path, arrow_width=0.5, arrow_head=True)
     arrow.save_arrow(
         base_path / "multi_segment_arrow_with_head.png", fc="magenta", lw=1
@@ -26,7 +26,7 @@ def main():
     path = [(0, 0), (4, 0), (8, 2)]
     arrow = ArrowETC(path, arrow_width=0.5, arrow_head=True)
     arrow.save_arrow(
-        base_path / "obtuse_arrow_with_head.png", fc="orange", ec="cyan", lw=1.2
+        base_path / "obtuse_arrow_with_head.png", fc="orange", ec="white", lw=1.2
     )
 
     # acute angles
@@ -43,7 +43,7 @@ def main():
     path = [(0, 0), (4, 0), (8, 2)]
     arrow = ArrowETC(path, arrow_width=0.5, arrow_head=True, bezier=True)
     arrow.save_arrow(
-        base_path / "basic_bezier_with_head.png", fc="orange", ec="cyan", lw=1.2
+        base_path / "basic_bezier_with_head.png", fc="orange", ec="white", lw=1.2
     )
 
     # crazier bezier (bezier_n too low, skews arrowhead)
