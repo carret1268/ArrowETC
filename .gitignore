@@ -5,3 +5,5 @@ dist/
 *.egg-info/
 docs/_build/
 .coverage
+.ruff_cache
+.mypy_cache
