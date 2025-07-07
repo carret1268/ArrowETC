@@ -46,9 +46,7 @@ Curved Bezier arrow with head:
 >>> curved_arrow = ArrowETC(path=[(0, 0), (2, 4), (4, 0)], arrow_width=0.8, arrow_head=True, bezier=True)
 >>> curved_arrow.save_arrow(name='curved_arrow.png')
 
-Dependencies
--------------
-- Python packages: numpy, matplotlib, scipy
+---
 """
 
 from typing import cast, List, Optional, Tuple, Union

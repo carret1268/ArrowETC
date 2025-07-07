@@ -43,6 +43,16 @@ pip install arrowetc
 
 ---
 
+## Dependencies
+
+ArrowETC requires the following Python packages:
+
+- `numpy`
+- `matplotlib`
+- `scipy`
+
+---
+
 ## Examples
 
 Below are practical examples showcasing what ArrowETC can do. These scripts generate images demonstrating straight, multi-segmented, and curved arrows with various configurations:
