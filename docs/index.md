@@ -1,5 +1,10 @@
 # ArrowETC
 
+[![GitHub](https://img.shields.io/badge/source-GitHub-black?logo=github)](https://github.com/carret1268/ArrowETC)
+[![PyPI](https://img.shields.io/pypi/v/ArrowETC.svg)](https://pypi.org/project/ArrowETC/)
+
+
+
 ArrowETC is a Python library for building flexible, multi-segmented arrows with explicit vertex control — perfect for precise, publication-quality diagrams. It was designed as a drop-in replacement for matplotlib’s `FancyArrow` and `FancyArrowPatch`, providing far greater control over arrow geometry, corners, and paths.
 
 ---
@@ -33,7 +38,7 @@ This was essential for building [LogicTreeETC](https://github.com/yourusername/L
 
 ArrowETC requires Python 3.7+ and the packages `numpy`, `matplotlib`, and `scipy`. Install via pip:
 ```bash
-pip install ArrowETC
+pip install arrowetc
 ```
 
 ---
