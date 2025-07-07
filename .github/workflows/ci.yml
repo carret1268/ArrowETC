@@ -29,6 +29,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -e .
         pip install pytest coverage ruff mypy bandit
+        pip install types-numpy
         pip install -r docs/requirements.txt
 
     - name: Run linter (Ruff)
