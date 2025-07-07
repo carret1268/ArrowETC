@@ -48,6 +48,11 @@ pip install ArrowETC
 
 Below are practical examples showcasing what ArrowETC can do. These scripts generate images demonstrating straight, multi-segmented, and curved arrows with various configurations:
 
+### Matplotlib integration
+
+See <https://github.com/carret1268/ArrowETC/blob/main/examples/example_with_matplotlib.py> for a complete example demonstrating how to use ArrowETC as a drop-in replacement for matplotlib arrows. The example shows how to add ArrowETC arrows pointing from annotation boxes to points on a scatter plot, or other annotation boxes, or even specific vertices on another arrow; including straight, segmented, and curved Bezier arrows -- perfect for creating polished, publication-quality figures with precise control over arrow geometry.
+
+![matplotlib integration](https://raw.githubusercontent.com/carret1268/ArrowETC/main/resources/example_with_matplotlib.png)
 
 ### Basic arrow with head
 
