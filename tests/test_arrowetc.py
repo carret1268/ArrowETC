@@ -20,11 +20,25 @@ def test_basic_straight_arrow():
 def test_multi_segmented_arrow():
     """Arrow with multiple segments and bends should compute correct attributes and vertices."""
     path = [(0, 0), (0, 2), (4, -1)]
-    arrow = ArrowETC(path=path, arrow_width=1.0, arrow_head=True)
+    arrow = ArrowETC(
+        path=path,
+        arrow_width=1.0,
+        arrow_head=True,
+        ec="black",
+        fc="green",
+        lw=2,
+        ls="--",
+        zorder=5,
+    )
 
     assert arrow.n_path == 3
     assert arrow.segment_lengths[0] == pytest.approx(2)
     assert arrow.vertices[0] == pytest.approx((-0.5, 0))
+    assert arrow.ec == "black"
+    assert arrow.fc == "green"
+    assert arrow.lw == 2
+    assert arrow.ls == "--"
+    assert arrow.zorder == 5
 
     expected_angle = np.arctan2(-3, 4) % (2 * np.pi)
     assert arrow.path_angles[1] == pytest.approx(expected_angle)
