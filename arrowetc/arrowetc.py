@@ -136,7 +136,7 @@ class ArrowETC:
         zorder: int = 100,
         bezier: bool = False,
         bezier_n: int = 400,
-        close_butt: bool = True
+        close_butt: bool = True,
     ) -> None:
         # data validation
         self.n_path = len(path)
@@ -595,7 +595,6 @@ class ArrowETC:
         )
 
         return ax
-
 
     def save_arrow(
         self,
