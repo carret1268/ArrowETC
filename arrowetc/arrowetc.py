@@ -96,6 +96,9 @@ class ArrowETC:
         Number of points used to sample the Bezier curve if `bezier=True`.
         Increase this value if you see jagged tips or insufficient curve resolution.
         Default is 300.
+    close_butt : bool, optional
+        If True, the first vertex will also be included as the final vertex to draw a segment at the butt
+        of the arrow. If False, no segment will be drawn for the butt. Default True.
 
     Attributes
     ----------
@@ -133,6 +136,7 @@ class ArrowETC:
         zorder: int = 100,
         bezier: bool = False,
         bezier_n: int = 400,
+        close_butt: bool = True
     ) -> None:
         # data validation
         self.n_path = len(path)
@@ -156,6 +160,7 @@ class ArrowETC:
         self.bezier_n = bezier_n
         self.x_path = [coord[0] for coord in path]
         self.y_path = [coord[1] for coord in path]
+        self.close_butt = close_butt
         self.n_segments = self.n_path - 1  # actual number of line segments
         self.n_segment_vertices = 2 * (
             1 + self.n_segments
@@ -175,14 +180,18 @@ class ArrowETC:
         self.arrow_width = arrow_width
         self.arrow_head = arrow_head
 
-        # verts need to wrap back around to first vertex for plotting
         if self.bezier:
-            self.curve_samples = self._get_bezier_samples()  # use smooth samples
+            self.curve_samples = self._get_bezier_samples()
             verts = self._get_curve_vertices(self.curve_samples)
         else:
             verts = self._get_vertices()
 
-        self.vertices = np.vstack((verts, verts[0]))
+        # Optionally close the polygon at the butt end
+        if self.close_butt:
+            self.vertices = np.vstack((verts, verts[0]))
+        else:
+            self.vertices = np.asarray(verts)
+
         self.x_vertices = self.vertices[:, 0]
         self.y_vertices = self.vertices[:, 1]
 
@@ -567,17 +576,26 @@ class ArrowETC:
         matplotlib.axes.Axes
             The same axes, with the arrow drawn.
         """
+        # Fill the shape (face only)
         ax.fill(
             self.x_vertices,
             self.y_vertices,
             color=self.fc,
-            ec=self.ec,
-            lw=self.lw,
-            ls=self.ls,
             zorder=self.zorder,
         )
 
+        # Draw the outline (stroke/edge only)
+        ax.plot(
+            self.x_vertices,
+            self.y_vertices,
+            color=self.ec,
+            linewidth=self.lw,
+            linestyle=self.ls,
+            zorder=self.zorder + 1,  # ensure stroke is on top of fill
+        )
+
         return ax
+
 
     def save_arrow(
         self,
