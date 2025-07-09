@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ArrowETC"
-version = "0.1.8"
+version = "0.1.9"
 description = "Flexible multi-segmented and curved arrows for Python visualizations."
 authors = [
   { name="E. Tyler Carr", email="carret1268@gmail.com" },

@@ -562,7 +562,7 @@ class ArrowETC:
 
         return distances
 
-    def draw_to_ax(self, ax: Axes) -> Axes:
+    def draw_to_ax(self, ax: Axes, fill_arrow: bool = True) -> Axes:
         """
         Draw the arrow on a provided matplotlib Axes object.
 
@@ -570,6 +570,9 @@ class ArrowETC:
         ----------
         ax : matplotlib.axes.Axes
             The axes to draw the arrow onto.
+        fill_arrow: bool, optional
+            If True, the self.fc attribute will be used to fill the arrow. If False, there will be
+            no fill, just an outline of the arrow. Default is True.
 
         Returns
         -------
@@ -577,12 +580,13 @@ class ArrowETC:
             The same axes, with the arrow drawn.
         """
         # Fill the shape (face only)
-        ax.fill(
-            self.x_vertices,
-            self.y_vertices,
-            color=self.fc,
-            zorder=self.zorder,
-        )
+        if fill_arrow:
+            ax.fill(
+                self.x_vertices,
+                self.y_vertices,
+                color=self.fc,
+                zorder=self.zorder,
+            )
 
         # Draw the outline (stroke/edge only)
         ax.plot(
