@@ -21,7 +21,7 @@ ArrowETC was created to overcome these limitations by giving full access to the 
 - Easy addition of custom arrowheads with precise placement.
 - Metadata about segment lengths and angles for advanced use.
 
-This was essential for building [LogicTreeETC](https://github.com/carret1268/LogicTreeETC), a Python framework for generating logic and decision trees with annotated boxes connected by precise arrows representing information flow (e.g., suggested study paths or process flows).
+This was essential for building [LogicTreeETC](https://github.com/carret1268/LogicTreeETC), a Python framework for generating logic and decision trees with annotated boxes connected by precise arrows representing information flow.
 
 ---
 
@@ -37,7 +37,7 @@ This was essential for building [LogicTreeETC](https://github.com/carret1268/Log
 
 ## Installation
 
-ArrowETC requires Python 3.8+ and the packages `numpy`, `matplotlib`, and `scipy`. Install via pip:
+ArrowETC requires Python 3.10+ and the packages `numpy`, `matplotlib`, and `scipy`. Install via pip:
 ```bash
 pip install ArrowETC
 ```
@@ -70,8 +70,14 @@ Draws a straight vertical arrow with an arrowhead at the tip. This demonstrates 
 
 ```python
 path = [(0, 0), (0, 4)]
-arrow = ArrowETC(path, arrow_width=0.5, arrow_head=True)
-arrow.save_arrow("resources/basic_arrow_with_head.png")
+arrow = ArrowETC(
+    path, 
+    arrow_width=0.5, 
+    arrow_head=True, 
+    ec="white", 
+    fc="cyan"
+)
+arrow.save_arrow(base_path / "basic_arrow_with_head.png")
 ```
 <div align="center">
   <img src="https://raw.githubusercontent.com/carret1268/ArrowETC/main/resources/basic_arrow_with_head.png" alt="Basic arrow with head"/>
@@ -82,9 +88,16 @@ arrow.save_arrow("resources/basic_arrow_with_head.png")
 Draws an arrow that bends twice -- showcasing ArrowETC’s support for arbitrarily segmented arrows with mitered joints.
 
 ```python
-path = [(0, 0), (0, 4), (5, 4), (5, -2)]
-arrow = ArrowETC(path, arrow_width=0.5, arrow_head=True)
-arrow.save_arrow(base_path / "multi_segment_arrow_with_head.png", fc="magenta", lw=1)
+path = [(0, 0), (0, 4), (5, 4), (5, 0)]
+arrow = ArrowETC(
+    path, 
+    arrow_width=0.5, 
+    arrow_head=True, 
+    ec="white", 
+    fc="magenta", 
+    lw=2
+)
+arrow.save_arrow(base_path / "multi_segment_arrow_with_head.png")
 ```
 <div align="center">
   <img src="https://raw.githubusercontent.com/carret1268/ArrowETC/main/resources/multi_segment_arrow_with_head.png" alt="Multi segment arrow with head"/>
@@ -96,8 +109,14 @@ Illustrates how ArrowETC handles obtuse bends smoothly with obtuse corners.
 
 ```python
 path = [(0, 0), (4, 0), (8, 2)]
-arrow = ArrowETC(path, arrow_width=0.5, arrow_head=True)
-arrow.save_arrow(base_path / "obtuse_arrow_with_head.png", fc="orange", ec="cyan", lw=1.2)
+arrow = ArrowETC(
+    path, 
+    arrow_width=0.5, 
+    arrow_head=True, 
+    ec="white", 
+    fc="orange"
+)
+arrow.save_arrow(base_path / "obtuse_arrow_with_head.png")
 ```
 
 <div align="center">
@@ -110,7 +129,13 @@ Shows an arrow with an acute angle, where the shaft sharply turns -- highlightin
 
 ```python
 path = [(0, 0), (4, 0), (1, 4)]
-arrow = ArrowETC(path, arrow_width=0.5, arrow_head=True)
+arrow = ArrowETC(
+    path, 
+    arrow_width=0.5, 
+    arrow_head=True, 
+    ec="white", 
+    fc="cyan"
+)
 arrow.save_arrow(base_path / "acute_arrow_with_head.png")
 ```
 
@@ -124,8 +149,14 @@ Shows how the ArrowETC object can handle more complicated paths.
 
 ```python
 path = [(0, 0), (1, 2), (2, -1), (4, -2), (5, 0), (7, 0)]
-arrow = ArrowETC(path, arrow_head=True, arrow_width=0.2)
-arrow.save_arrow(base_path / "many_segments_with_head.png", lw=1.2)
+arrow = ArrowETC(
+    path, 
+    arrow_head=True, 
+    arrow_width=0.2, 
+    ec="white", 
+    fc="cyan"
+)
+arrow.save_arrow(base_path / "many_segments_with_head.png")
 ```
 
 <div align="center">
@@ -138,7 +169,13 @@ Creates a segmented rectangular “pipe” without an arrowhead, useful for proc
 
 ```python
 path = [(0, 0), (0, -10), (10, -10), (10, 0)]
-arrow = ArrowETC(path, arrow_width=1, arrow_head=False)
+arrow = ArrowETC(
+    path, 
+    arrow_width=1, 
+    arrow_head=False, 
+    ec="white", 
+    fc="cyan"
+)
 arrow.save_arrow(base_path / "multi_segment_no_head.png")
 ```
 
@@ -152,8 +189,15 @@ Uses a smooth Bezier curve instead of straight segments.
 
 ```python
 path = [(0, 0), (4, 0), (8, 2)]
-arrow = ArrowETC(path, arrow_width=0.5, arrow_head=True, bezier=True)
-arrow.save_arrow(base_path / "basic_bezier_with_head.png", fc="orange", ec="cyan", lw=1.2)
+arrow = ArrowETC(
+    path, 
+    arrow_width=0.5, 
+    arrow_head=True, 
+    bezier=True, 
+    ec="white", 
+    fc="orange"
+)
+arrow.save_arrow(base_path / "basic_bezier_with_head.png")
 ```
 
 <div align="center">
@@ -166,8 +210,15 @@ arrow.save_arrow(base_path / "basic_bezier_with_head.png", fc="orange", ec="cyan
 
 ```python
 path = [(0, 0), (4, -5), (8, 2), (16, -8)]
-arrow = ArrowETC(path, arrow_width=1, arrow_head=True, bezier=True)
-arrow.save_arrow(base_path / "crazier_bezier_with_head-low_n.png", lw=1.2)
+arrow = ArrowETC(
+    path, 
+    arrow_width=1, 
+    arrow_head=True, 
+    bezier=True, 
+    ec="white", 
+    fc="cyan"
+)
+arrow.save_arrow(base_path / "crazier_bezier_with_head-low_n.png")
 ```
 
 <div align="center">
@@ -178,8 +229,16 @@ arrow.save_arrow(base_path / "crazier_bezier_with_head-low_n.png", lw=1.2)
 
 ```python
 path = [(0, 0), (4, -5), (8, 2), (14, -8)]
-arrow = ArrowETC(path, arrow_width=1, arrow_head=True, bezier=True, bezier_n=800)
-arrow.save_arrow(base_path / "crazier_bezier_with_head-high_n.png", lw=1.2)
+arrow = ArrowETC(
+    path,
+    arrow_width=1,
+    arrow_head=True,
+    bezier=True,
+    bezier_n=800,
+    ec="white",
+    fc="cyan",
+)
+arrow.save_arrow(base_path / "crazier_bezier_with_head-high_n.png")
 ```
 
 <div align="center">
