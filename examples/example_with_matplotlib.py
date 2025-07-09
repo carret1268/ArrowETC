@@ -37,19 +37,6 @@ def add_annotation(ax, x, y, text_str, fontsize=10, ha="left", va="center"):
     )
 
 
-def draw_arrow(ax, path, width, color, bezier=False, bezier_n=300):
-    """
-    Create and draw an ArrowETC polygon.
-    """
-    arrow = ArrowETC(
-        path, arrow_width=width, arrow_head=True, bezier=bezier, bezier_n=bezier_n
-    )
-    ax.fill(
-        arrow.x_vertices, arrow.y_vertices, color=color, alpha=1, ec="black", zorder=100
-    )
-    return arrow
-
-
 def main():
     base_path = Path(__file__).resolve().parent.parent / "resources"
 
@@ -73,12 +60,14 @@ def main():
         va="bottom",
     )
     x_center1, y_bottom1, bbox1 = get_bbox_center_bottom(fig, ax, text1)
-    arrow1 = draw_arrow(
-        ax,
-        [(x_center1, y_bottom1), (point_x, point_y + 0.05)],
-        width=0.15,
-        color="magenta",
+    arrow1 = ArrowETC(
+        path=[(x_center1, y_bottom1), (point_x, point_y + 0.05)],
+        fc="magenta",
+        ec="black",
+        arrow_width=0.15,
+        arrow_head=True,
     )
+    ax = arrow1.draw_to_ax(ax)
 
     # second annotation: I have access to each vertex
     vertex1_x, vertex1_y = arrow1.vertices[2]
@@ -88,12 +77,14 @@ def main():
     x_center2, y_center2, bbox2 = get_bbox_center_bottom(
         fig, ax, text2, vertical_offset=-0.02
     )
-    draw_arrow(
-        ax,
-        [(bbox2.xmin - 0.07, y_center2), (vertex1_x, vertex1_y)],
-        width=0.1,
-        color="cyan",
+    arrow2 = ArrowETC(
+        path=[(bbox2.xmin - 0.07, y_center2), (vertex1_x, vertex1_y)],
+        fc="cyan",
+        ec="black",
+        arrow_width=0.1,
+        arrow_head=True,
     )
+    ax = arrow2.draw_to_ax(ax)
 
     # third annotation: We can easily add more complex arrows
     text3 = add_annotation(ax, -0.5, -0.8, "We can easily add more complex arrows")
@@ -109,7 +100,10 @@ def main():
         (x_center2, y_center3),  # straight down
         (x_right3, y_center3),  # left to third text
     ]
-    arrow3 = draw_arrow(ax, path3, width=0.1, color="teal")
+    arrow3 = ArrowETC(
+        path=path3, fc="teal", ec="black", arrow_head=True, arrow_width=0.1
+    )
+    ax = arrow3.draw_to_ax(ax)
 
     # path for Bezier arrow from below text3 to second vertex of arrow3
     vertex3_x, vertex3_y = arrow3.vertices[1]
@@ -120,7 +114,16 @@ def main():
         (vertex3_x + 0.8, vertex3_y - 0.3),
         (vertex3_x, vertex3_y),
     ]
-    draw_arrow(ax, bezier_path, width=0.09, color="orange", bezier=True, bezier_n=800)
+    arrow4 = ArrowETC(
+        path=bezier_path,
+        arrow_width=0.09,
+        arrow_head=True,
+        fc="orange",
+        ec="black",
+        bezier=True,
+        bezier_n=800,
+    )
+    ax = arrow4.draw_to_ax(ax)
 
     # final plot adjustments
     ax.grid(True)

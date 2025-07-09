@@ -51,6 +51,7 @@ Curved Bezier arrow with head:
 
 from typing import cast, List, Optional, Tuple, Union
 
+from matplotlib.axes import Axes
 import matplotlib.pyplot as plt
 import numpy as np
 from numpy.typing import NDArray
@@ -78,6 +79,16 @@ class ArrowETC:
         Width of the arrow shaft in data coordinates.
     arrow_head : bool, optional
         If True, an arrowhead is added at the end of the path. If False, the arrow ends with a flat edge.
+    ec : str, optional
+        The edge color of your arrow. Default is "grey".
+    fc : str, optional
+        The face color of your arrow. Default is "white".
+    lw : FloatLike, optional
+        The line width of your arrow. Default is 1.5.
+    ls : str, optional
+        The line style of your arrow. Defuault is "-".
+    zorder : int, optional
+        The zorder of your arrows. Default is 100.
     bezier : bool, optional
         If True, constructs the arrow along a smooth Bezier curve interpolated through
         the path points. If False, the arrow uses straight line segments. Default is False.
@@ -114,7 +125,12 @@ class ArrowETC:
         self,
         path: List[Tuple[FloatLike, FloatLike]],
         arrow_width: FloatLike,
-        arrow_head: bool = False,
+        arrow_head: bool = True,
+        ec: str = "grey",
+        fc: str = "white",
+        lw: FloatLike = 1.5,
+        ls: str = "-",
+        zorder: int = 100,
         bezier: bool = False,
         bezier_n: int = 400,
     ) -> None:
@@ -131,6 +147,11 @@ class ArrowETC:
 
         # set parameters
         self.path = path
+        self.ec = ec
+        self.fc = fc
+        self.lw = lw
+        self.ls = ls
+        self.zorder = zorder
         self.bezier = bezier
         self.bezier_n = bezier_n
         self.x_path = [coord[0] for coord in path]
@@ -532,12 +553,35 @@ class ArrowETC:
 
         return distances
 
+    def draw_to_ax(self, ax: Axes) -> Axes:
+        """
+        Draw the arrow on a provided matplotlib Axes object.
+
+        Parameters
+        ----------
+        ax : matplotlib.axes.Axes
+            The axes to draw the arrow onto.
+
+        Returns
+        -------
+        matplotlib.axes.Axes
+            The same axes, with the arrow drawn.
+        """
+        ax.fill(
+            self.x_vertices,
+            self.y_vertices,
+            color=self.fc,
+            ec=self.ec,
+            lw=self.lw,
+            ls=self.ls,
+            zorder=self.zorder,
+        )
+
+        return ax
+
     def save_arrow(
         self,
         name: str = "./arrow.png",
-        ec: str = "white",
-        fc: str = "cyan",
-        lw: FloatLike = 0.6,
     ) -> None:
         """
         Display the arrow using matplotlib.
@@ -549,12 +593,6 @@ class ArrowETC:
         ----------
         name : str, optional
             Name / path of the resulting png. Default is './arrow.png'.
-        ec : str, optional
-            Edge color of the arrow outline. Default is 'white'.
-        fc : str, optional
-            Fill color of the arrow body. Default is 'cyan'.
-        lw : FloatLike, optional
-            Line width of the arrow outline. Default is 0.6.
         """
         x = self.x_vertices
         y = self.y_vertices
@@ -572,8 +610,7 @@ class ArrowETC:
         ax.set_xlim(xmin, xmax)
         ax.set_ylim(ymin, ymax)
         # plot lines and vertices
-        ax.plot(x, y, color=ec, lw=lw, zorder=100)
-        ax.fill(x, y, color=fc)
+        ax = self.draw_to_ax(ax)
         ax.set_aspect("equal")
 
         plt.savefig(name, bbox_inches="tight", pad_inches=0.1)
