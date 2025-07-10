@@ -281,7 +281,10 @@ class ArrowETC:
         y = np.array([p[1] for p in self.path])
 
         # Use scipy splprep for B-spline parameterization
-        tck, _u = splprep([x, y], s=0, k=min(3, self.n_segments))
+        k = min(3, self.n_segments)
+        if self.n_segments < 2:
+            k = 1  # fallback to linear spline for small paths
+        tck, _u = splprep([x, y], s=0, k=k)
         unew = np.linspace(0, 1, self.bezier_n)
         out = splev(unew, tck)
         sampled_curve = np.column_stack(out)
