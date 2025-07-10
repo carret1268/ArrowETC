@@ -325,15 +325,14 @@ class ArrowETC:
         # Determine where to stop shaft for arrowhead
         if self.arrow_head:
             head_length = self.arrow_width * 1.5
-            # cumulative distances backward from the tip
             dists = np.hypot(np.diff(samples[::-1, 0]), np.diff(samples[::-1, 1]))
             cumulative = np.cumsum(np.hstack([[0], dists]))
-            # find first index where cumulative distance exceeds head_length
             idx_cutoff = n_samples - int(np.argmax(cumulative > head_length)) - 1
+            idx_cutoff = max(0, min(idx_cutoff, n_samples - 2))
         else:
             idx_cutoff = n_samples - 1
 
-        # Build shaft vertices up to the cutoff point
+        # Build shaft vertices up to cutoff
         for i in range(idx_cutoff + 1):
             cx, cy = samples[i]
             perp_x, perp_y = -dy[i], dx[i]
@@ -343,27 +342,25 @@ class ArrowETC:
             right_side.append(right)
 
         if self.arrow_head:
-            theta_end = np.arctan2(dy[-1], dx[-1])
+            # Smooth tangent angle at tip
             tip_x, tip_y = samples[-1]
-            head_vertices = self._get_arrow_head_vertices(tip_x, tip_y, theta_end)
-            # head_vertices: [A, left_base, tip, right_base, E]
-            left_side.append(head_vertices[1])  # left_base
-            right_side.append(head_vertices[3])  # right_base
+            smooth_span = 5
+            span = min(smooth_span, n_samples - 1)
+            dx_tail = tip_x - samples[-1 - span, 0]
+            dy_tail = tip_y - samples[-1 - span, 1]
+            theta_end = np.arctan2(dy_tail, dx_tail)
 
-            vertices = np.vstack(
-                [
-                    left_side,
-                    head_vertices[2],  # tip
-                    right_side[::-1],
-                ]
-            )
+            # Compute symmetric arrowhead
+            head_vertices = self._get_arrow_head_vertices(tip_x, tip_y, theta_end)
+            _, base_left, tip, base_right, _ = head_vertices  # drop shaft edges A & E
+
+            # Append base and tip only — avoid double corners
+            left_side.append(base_left)
+            right_side.append(base_right)
+
+            vertices = np.vstack([left_side, tip, right_side[::-1]])
         else:
-            vertices = np.vstack(
-                [
-                    left_side,
-                    right_side[::-1],
-                ]
-            )
+            vertices = np.vstack([left_side, right_side[::-1]])
 
         return vertices
 
@@ -377,85 +374,41 @@ class ArrowETC:
         Parameters
         ----------
         tipx : FloatLike
-            The x-coordinate of the arrow tip (the x-coordinate of the final point in self.path).
+            The x-coordinate of the arrow tip.
         tipy : FloatLike
             The y-coordinate of the arrow tip.
         theta_1 : FloatLike
-            The angle in radians the line that a line between the arrow tip and the previouse
-            point in self.path make with the horizontal axis.
+            The direction of the arrow in radians (from shaft to tip).
 
         Returns
         -------
         NDArray[np.float64]
-            An array of the points that construct the arrow head [A, left_base, tip, right_base, E].
+            An array of five vertices forming the arrowhead polygon:
+            [shaft_left, base_left, tip, base_right, shaft_right]
         """
         shaft_width = self.arrow_width
         head_width = shaft_width * 2.0
         head_length = shaft_width * 1.5
 
-        # Unit vectors
-        dir_x, dir_y = np.cos(theta_1), np.sin(theta_1)
-        perp_x, perp_y = -dir_y, dir_x
+        # Unit direction and perpendicular vectors
+        dir_vec = np.array([np.cos(theta_1), np.sin(theta_1)])
+        perp_vec = np.array([-dir_vec[1], dir_vec[0]])
 
-        # Tip point
-        tip = np.array([tipx, tipy], dtype=np.float64)
+        # Tip of arrow
+        tip = np.array([tipx, tipy])
 
-        # Base center: base of the arrowhead along shaft
-        base_cx = tipx - head_length * dir_x
-        base_cy = tipy - head_length * dir_y
+        # Base center point
+        base_center = tip - head_length * dir_vec
 
-        # Left and right points on the arrowhead base line
-        left_base = np.array(
-            [base_cx + (head_width / 2) * perp_x, base_cy + (head_width / 2) * perp_y]
-        )
-        right_base = np.array(
-            [base_cx - (head_width / 2) * perp_x, base_cy - (head_width / 2) * perp_y]
-        )
+        # Base left and right points (wide)
+        base_left = base_center + (head_width / 2) * perp_vec
+        base_right = base_center - (head_width / 2) * perp_vec
 
-        # Shaft left line: parallel to shaft, offset by +shaft_width/2
-        shaft_dx, shaft_dy = dir_x, dir_y
-        shaft_left_point = np.array(
-            [base_cx + (shaft_width / 2) * perp_x, base_cy + (shaft_width / 2) * perp_y]
-        )
+        # Shaft left and right points (narrow)
+        shaft_left = base_center + (shaft_width / 2) * perp_vec
+        shaft_right = base_center - (shaft_width / 2) * perp_vec
 
-        # Shaft right line: parallel to shaft, offset by -shaft_width/2
-        shaft_right_point = np.array(
-            [base_cx - (shaft_width / 2) * perp_x, base_cy - (shaft_width / 2) * perp_y]
-        )
-
-        def line_intersection(
-            p1: NDArray[np.float64],
-            d1: NDArray[np.float64],
-            p2: NDArray[np.float64],
-            d2: NDArray[np.float64],
-        ) -> NDArray[np.float64]:
-            """
-            Computes intersection of lines p1 + t*d1 and p2 + s*d2.
-            """
-            A = np.array([d1, -d2]).T
-            if np.linalg.matrix_rank(A) < 2:
-                # Parallel lines: return base point directly to avoid NaN
-                return p2
-            t_s = np.linalg.solve(A, p2 - p1)
-            return p1 + t_s[0] * d1
-
-        # Compute A: where shaft left edge intersects base line
-        A = line_intersection(
-            shaft_left_point,
-            np.array([shaft_dx, shaft_dy]),
-            left_base,
-            right_base - left_base,
-        )
-
-        # Compute E: where shaft right edge intersects base line
-        E = line_intersection(
-            shaft_right_point,
-            np.array([shaft_dx, shaft_dy]),
-            left_base,
-            right_base - left_base,
-        )
-
-        return np.array([A, left_base, tip, right_base, E])
+        return np.array([shaft_left, base_left, tip, base_right, shaft_right])
 
     def _get_first_vertex(
         self, Ax: FloatLike, Ay: FloatLike, theta_1: FloatLike
@@ -589,6 +542,7 @@ class ArrowETC:
                 self.y_vertices,
                 color=self.fc,
                 zorder=self.zorder,
+                ec="none",
             )
 
         # Draw the outline (stroke/edge only)
@@ -621,7 +575,7 @@ class ArrowETC:
         x = self.x_vertices
         y = self.y_vertices
         # generate figure and axis to put boxes in
-        _, ax = plt.subplots(figsize=(5, 5), frameon=True, facecolor="black")
+        fig, ax = plt.subplots(figsize=(5, 5), frameon=True, facecolor="black")
         ax.axis("off")
         ax.set_aspect("equal")
         # set axis bounds
