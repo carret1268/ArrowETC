@@ -57,10 +57,10 @@ def test_headless_arrow():
 
 
 def test_bezier_arrow():
-    """Arrow constructed with bezier=True should generate curve samples and vertices matching bezier_n."""
+    """Arrow constructed with bezier=True should generate curve samples and vertices matching n_bezier."""
     path = [(0, 0), (2, 4), (4, 0)]
     arrow = ArrowETC(
-        path=path, arrow_width=0.5, arrow_head=True, bezier=True, bezier_n=100
+        path=path, arrow_width=0.5, arrow_head=True, bezier=True, n_bezier=100
     )
 
     assert arrow.curve_samples.shape[0] == 100
@@ -71,7 +71,7 @@ def test_bezier_arrow_no_head():
     """Arrow with bezier=True and arrow_head=False should generate correct curve vertices without head."""
     path = [(0, 0), (2, 4), (4, 0)]
     arrow = ArrowETC(
-        path=path, arrow_width=0.5, arrow_head=False, bezier=True, bezier_n=50
+        path=path, arrow_width=0.5, arrow_head=False, bezier=True, n_bezier=50
     )
 
     # Should have correct number of bezier samples
