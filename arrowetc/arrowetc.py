@@ -92,7 +92,7 @@ class ArrowETC:
     bezier : bool, optional
         If True, constructs the arrow along a smooth Bezier curve interpolated through
         the path points. If False, the arrow uses straight line segments. Default is False.
-    bezier_n : int, optional
+    n_bezier : int, optional
         Number of points used to sample the Bezier curve if `bezier=True`.
         Increase this value if you see jagged tips or insufficient curve resolution.
         Default is 300.
@@ -135,7 +135,7 @@ class ArrowETC:
         ls: str = "-",
         zorder: int = 100,
         bezier: bool = False,
-        bezier_n: int = 400,
+        n_bezier: int = 400,
         close_butt: bool = True,
     ) -> None:
         # data validation
@@ -157,7 +157,7 @@ class ArrowETC:
         self.ls = ls
         self.zorder = zorder
         self.bezier = bezier
-        self.bezier_n = bezier_n
+        self.n_bezier = n_bezier
         self.x_path = [coord[0] for coord in path]
         self.y_path = [coord[1] for coord in path]
         self.close_butt = close_butt
@@ -270,7 +270,7 @@ class ArrowETC:
     def _get_bezier_samples(self) -> NDArray[np.float64]:
         """
         Create a smooth Bezier (B-spline) curve through the control points of the path
-        and samples `self.bezier_n` points along it.
+        and samples `self.n_bezier` points along it.
 
         Returns
         -------
@@ -285,7 +285,7 @@ class ArrowETC:
         if self.n_segments < 2:
             k = 1  # fallback to linear spline for small paths
         tck, _u = splprep([x, y], s=0, k=k)
-        unew = np.linspace(0, 1, self.bezier_n)
+        unew = np.linspace(0, 1, self.n_bezier)
         out = splev(unew, tck)
         sampled_curve = np.column_stack(out)
 

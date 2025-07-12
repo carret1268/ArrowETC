@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ArrowETC"
-version = "0.1.11"
-description = "Flexible multi-segmented and curved arrows for Python visualizations."
+version = "0.1.12"
+description = "DEPRECATED: Use ArrowETC via LogicTreeETC instead. https://github.com/carret1268/LogicTreeETC"
 authors = [
   { name="E. Tyler Carr", email="carret1268@gmail.com" },
 ]
@@ -18,15 +18,12 @@ dependencies = [
   "scipy",
 ]
 classifiers = [
+    "Development Status :: 7 - Inactive",
+    "Intended Audience :: Developers",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
-    "License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
-    "Operating System :: OS Independent",
-    "Intended Audience :: Science/Research",
-    "Topic :: Scientific/Engineering :: Visualization",
-    "Topic :: Software Development :: Libraries :: Python Modules"
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering :: Visualization"
 ]
-
 [project.urls]
 Homepage = "https://github.com/carret/ArrowETC"
 

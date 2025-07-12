@@ -5,6 +5,27 @@
 [![codecov](https://codecov.io/gh/carret1268/ArrowETC/branch/main/graph/badge.svg)](https://codecov.io/gh/carret1268/ArrowETC)
 [![CI](https://github.com/carret1268/ArrowETC/actions/workflows/ci.yml/badge.svg)](https://github.com/carret1268/ArrowETC/actions/workflows/ci.yml)
 
+---
+
+## Deprecation Notice
+
+Note: This package has been deprecated and is no longer maintained as a standalone module.
+
+The functionality of ArrowETC has been fully integrated into the [LogicTreeETC](https://github.com/carret1268/LogicTreeETC) package, which includes not only the ArrowETC arrow-drawing engine, but also logic box layout tools and image feature detection via OpenCV.
+
+To continue receiving updates and support, please install the LogicTreeETC package:
+
+```bash
+pip install logictreeetc
+```
+
+And import ArrowETC as follows:
+
+```python
+from logictree import ArrowETC
+```
+
+---
 
 ArrowETC is a Python library for building flexible, multi-segmented arrows with explicit vertex control -- perfect for precise, publication-quality diagrams. It was designed as a drop-in replacement for matplotlib’s `FancyArrow` and `FancyArrowPatch`, providing far greater control over arrow geometry, corners, and paths.
 
